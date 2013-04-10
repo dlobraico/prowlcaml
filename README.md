@@ -11,7 +11,7 @@ When I have the time, this will become a command-line tool and library (and
 will be packaged for `opam`), but right now it's just the former.
 
 To build:
-  opam install core async cohttp
-  git clone git://github.com/pygatea/prowlcaml.git
-  cd prowlcaml
-  ocamlbuild -use-ocamlfind prowl.native
+    opam install core async cohttp
+    git clone git://github.com/pygatea/prowlcaml.git
+    cd prowlcaml
+    ocamlbuild -use-ocamlfind prowl.native
