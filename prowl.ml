@@ -2,12 +2,16 @@ open Core.Std
 open Async.Std
 open Cohttp_async
 
+(* CR dlobraico: This file should be split into lib and bin (so there is some semblance of
+   a Prowllib). *)
+
 let api_key =
   match Core.Std.Sys.getenv "PROWL_API_KEY" with
   | Some key -> key
   | None -> failwith "API key not found; try setting $PROWL_API_KEY "
 ;;
 
+(* CR dlobraico: Figure out why https isn't working and switch to that. *)
 let api_url = "http://api.prowlapp.com/publicapi/"
 
 type t =
@@ -27,6 +31,7 @@ let fields_flag spec ~doc ?aliases s field =
 ;;
 
 
+(* CR dlobraico: Check to make sure parameters are within the required bounds here. *)
 let uri_of_t api_key api_method t =
   let uri = Uri.of_string (api_url ^ api_method) in
   let add_p to_s = fun acc f ->
@@ -71,12 +76,14 @@ let send uri =
           return ())
 ;;
 
+(* CR dlobraico: Add the remaining API calls. *)
 module Add = struct
   let go api_key t =
     let uri = uri_of_t api_key "add" t in
     send uri
   ;;
 
+  (* CR dlobraico: Change some of these flags to positionals. *)
   let command =
     Command.async_basic ~summary:"send a notification"
       Command.Spec.(
